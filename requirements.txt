@@ -1,6 +1,7 @@
 chromadb
 dataclasses-json
 fastapi
+requests
 google-generativeai
 google-auth
 google-auth-oauthlib
@@ -11,6 +12,7 @@ httpcore
 httptools
 httpx
 langchain
+langchain_google_genai
 langchain-chroma
 langchain-text-splitters
 pydantic

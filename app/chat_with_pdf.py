@@ -2,7 +2,6 @@ import os
 from fastapi import APIRouter, HTTPException, Request
 import google.generativeai as genai
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.vectorstores import Chroma
 
@@ -21,7 +20,7 @@ def get_prompt(context, question):
     """
 
 @router.post("/{pdf_id}")
-def chat_with_pdf(request: Request, question, pdf_id):
+async def chat_with_pdf(request: Request, question, pdf_id):
     model = genai(model="gemini-1.5-flash")
     embeddings = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001")
