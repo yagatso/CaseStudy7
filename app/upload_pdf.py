@@ -1,15 +1,18 @@
 import uuid
 from PyPDF2 import PdfReader
-from fastapi import APIRouter, UploadFile
+from fastapi import APIRouter, HTTPException, UploadFile
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain.vectorstores import FAISS
 from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
 @router.post("")
 async def generate_chunks(pdf_docs: UploadFile):
+    if pdf_docs.content_type != "application/pdf":
+        raise HTTPException(status_code=400, detail="Please upload a PDF file!!")
+    
     #extract all texts
     text = ""
     for pdf in pdf_docs:
@@ -23,7 +26,7 @@ async def generate_chunks(pdf_docs: UploadFile):
 
     unique_id = str(uuid.uuid4())
 
-    vectorstore = Chroma.from_texts(documents=chunks, embedding=GoogleGenerativeAIEmbeddings(model="models/embedding-001"))
+    vectorstore = FAISS.from_texts(documents=chunks, embedding=GoogleGenerativeAIEmbeddings(model="models/embedding-001"))
     vectorstore.save_local(f"pdf_{unique_id}.pdf")
 
     pdf_data = {

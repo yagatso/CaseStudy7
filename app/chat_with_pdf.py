@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException, Request
 import google.generativeai as genai
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain.prompts import PromptTemplate
-from langchain.vectorstores import Chroma
+from langchain.vectorstores import FAISS
 
 router = APIRouter()
 
@@ -25,7 +25,7 @@ async def chat_with_pdf(request: Request, question, pdf_id):
     embeddings = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001")
 
-    pdf = Chroma.load_local(f"{pdf_id}.pdf", embeddings)
+    pdf = FAISS.load_local(f"{pdf_id}.pdf", embeddings)
     if pdf:
          prompt = PromptTemplate(template=get_prompt(pdf, question))
     else: 
