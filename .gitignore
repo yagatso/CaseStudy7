@@ -38,7 +38,6 @@ coverage.xml
 .mr.developer.cfg
 .project
 .pydevproject
-.vscode
 
 # Rope
 .ropeproject
@@ -49,3 +48,6 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+#Vscode
+.vscode
