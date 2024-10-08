@@ -1,4 +1,3 @@
-dataclasses-json
 fastapi
 requests
 google-generativeai
@@ -11,6 +10,7 @@ httpcore
 httptools
 httpx
 langchain
+langchain-community
 langchain_google_genai
 faiss-cpu
 langchain-text-splitters
