@@ -3,3 +3,4 @@
 .vscode
 local.env
 .pid
+__pycache__/
