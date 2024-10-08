@@ -10,12 +10,13 @@ router = APIRouter()
 
 @router.post("")
 async def upload_and_process_pdf(file: UploadFile):
-    if file.content_type != "application/pdf":
-        raise HTTPException(status_code=400, detail="Please upload a PDF file!")
     
     unique_id = str(uuid.uuid4())
 
-    chunks = await get_chunks(file)
+    tmp = ""
+    tmp.write(await file.read())
+
+    chunks = await get_chunks(tmp)
 
     save_to_local(unique_id, chunks)
 
@@ -31,9 +32,9 @@ def save_to_local(unique_id, chunks):
     vectorstore = FAISS.from_texts(documents=chunks, embedding=GoogleGenerativeAIEmbeddings(model="models/embedding-001"))
     vectorstore.save_local(f"pdf_{unique_id}.pdf")
 
-async def get_chunks(file):
+def get_chunks(file):
     text = ""
-    pdf_reader = PdfReader(await file.read())
+    pdf_reader = PdfReader(file)
     for page in pdf_reader:
         text += page.extract_text()
     
