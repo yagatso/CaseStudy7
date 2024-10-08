@@ -4,3 +4,4 @@
 local.env
 .pid
 __pycache__/
+app\endpoints\__pycache__/
