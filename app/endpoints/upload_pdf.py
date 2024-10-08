@@ -13,10 +13,7 @@ async def upload_and_process_pdf(file: UploadFile):
     
     unique_id = str(uuid.uuid4())
 
-    tmp = ""
-    tmp.write(await file.read())
-
-    chunks = await get_chunks(tmp)
+    chunks = get_chunks(await file.read())
 
     save_to_local(unique_id, chunks)
 
