@@ -14,8 +14,8 @@ async def upload_and_process_pdf(file: UploadFile):
     unique_id = str(uuid.uuid4())
 
     try:
-        with open(file.filename,'wb+') as wf:
-            wf.write(file.file.read())
+        with open(file.filename,"wb+") as wf:
+            wf.write(await file.read())
     except Exception as e:
             return {"error": e.__str__()}
 
@@ -36,7 +36,6 @@ def save_to_local(unique_id, chunks):
     vectorstore.save_local(f"pdf_{unique_id}.pdf")
 
 def get_chunks(file):
-    text = ""
     pdf_reader = PdfReader(file)
     for page in pdf_reader:
         text += page.extract_text()
