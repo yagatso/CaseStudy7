@@ -1,9 +1,9 @@
 import uuid
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 from fastapi import APIRouter, HTTPException, UploadFile
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from fastapi.responses import JSONResponse
 
 router = APIRouter()
